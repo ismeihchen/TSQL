@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'E:\MVC2\STUDYBOOK\TOTAL\ASPNETMVCSP\PRJTSQL\PRJTSQL\APP_DATA\DEMO.MDF.dbo.Orders' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Order_Date" />
+            <PropertyRef Name="Cust_Name" />
+            <PropertyRef Name="Qty" />
+          </Key>
+          <Property Name="Order_Date" Type="date" Nullable="false" />
+          <Property Name="Cust_Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Qty" Type="int" Nullable="false" />
+          <Property Name="Price" Type="int" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'E:\MVC2\STUDYBOOK\TOTAL\ASPNETMVCSP\PRJTSQL\PRJTSQL\APP_DATA\DEMO.MDF.dbo.Specialty' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="Specialty">
+          <Key>
+            <PropertyRef Name="EmpName" />
+            <PropertyRef Name="Major" />
+          </Key>
+          <Property Name="EmpName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Major" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Function Name="usp_GetOrderReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetOrderReport_PIVOT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetOrderReportV2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetSpecialtyReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetSpecialtyReportV2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetSpecialtyReportV3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DemoModelStoreContainer">
+          <EntitySet Name="Orders" EntityType="Self.Orders" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Orders].[Order_Date] AS [Order_Date], 
+    [Orders].[Cust_Name] AS [Cust_Name], 
+    [Orders].[Qty] AS [Qty], 
+    [Orders].[Price] AS [Price]
+    FROM [dbo].[Orders] AS [Orders]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Specialty" EntityType="Self.Specialty" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Specialty].[EmpName] AS [EmpName], 
+    [Specialty].[Major] AS [Major]
+    FROM [dbo].[Specialty] AS [Specialty]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Order_Date" />
+            <PropertyRef Name="Cust_Name" />
+            <PropertyRef Name="Qty" />
+          </Key>
+          <Property Name="Order_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Cust_Name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Qty" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Specialty">
+          <Key>
+            <PropertyRef Name="EmpName" />
+            <PropertyRef Name="Major" />
+          </Key>
+          <Property Name="EmpName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Major" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DemoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Specialty" EntityType="Self.Specialty" />
+          <FunctionImport Name="usp_GetOrderReport" ReturnType="Collection(DemoModel.usp_GetOrderReport_Result)" />
+          <FunctionImport Name="usp_GetOrderReport_PIVOT" ReturnType="Collection(DemoModel.usp_GetOrderReport_PIVOT_Result)" />
+          <FunctionImport Name="usp_GetOrderReportV2" ReturnType="Collection(DemoModel.usp_GetOrderReportV2_Result)" />
+          <FunctionImport Name="usp_GetSpecialtyReport" ReturnType="Collection(DemoModel.usp_GetSpecialtyReport_Result)" />
+          <FunctionImport Name="usp_GetSpecialtyReportV2" ReturnType="Collection(DemoModel.usp_GetSpecialtyReportV2_Result)" />
+          <FunctionImport Name="usp_GetSpecialtyReportV3" ReturnType="Collection(DemoModel.usp_GetSpecialtyReportV3_Result)" />
+        </EntityContainer>
+        <ComplexType Name="usp_GetOrderReport_Result">
+          <Property Type="String" Name="Cust_Name" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Order_Date" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="AR" Nullable="true" />
+          <Property Type="Int32" Name="C2009_08_01" Nullable="true" />
+          <Property Type="Int32" Name="C2009_08_02" Nullable="true" />
+          <Property Type="Int32" Name="C2009_08_03" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetOrderReport_PIVOT_Result">
+          <Property Type="String" Name="Cust_Name" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="C2009_08_01" Nullable="true" />
+          <Property Type="Int32" Name="C2009_08_02" Nullable="true" />
+          <Property Type="Int32" Name="C2009_08_03" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetOrderReportV2_Result">
+          <Property Type="String" Name="Cust_Name" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="C2009_08_01" Nullable="true" />
+          <Property Type="Int32" Name="C2009_08_02" Nullable="true" />
+          <Property Type="Int32" Name="C2009_08_03" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetSpecialtyReport_Result">
+          <Property Type="String" Name="EmpName" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Major" Nullable="false" MaxLength="20" />
+          <Property Type="Int64" Name="FldIdx" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetSpecialtyReportV2_Result">
+          <Property Type="String" Name="EmpName" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Major" Nullable="false" MaxLength="20" />
+          <Property Type="Int64" Name="FldIdx" Nullable="true" />
+          <Property Type="String" Name="Fld1" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Fld2" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Fld3" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="usp_GetSpecialtyReportV3_Result">
+          <Property Type="String" Name="EmpName" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Fld1" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Fld2" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Fld3" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="FldCount" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DemoModelStoreContainer" CdmEntityContainer="DemoEntities">
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DemoModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Order_Date" ColumnName="Order_Date" />
+                <ScalarProperty Name="Cust_Name" ColumnName="Cust_Name" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specialty">
+            <EntityTypeMapping TypeName="DemoModel.Specialty">
+              <MappingFragment StoreEntitySet="Specialty">
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="Major" ColumnName="Major" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetOrderReport" FunctionName="DemoModel.Store.usp_GetOrderReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoModel.usp_GetOrderReport_Result">
+                <ScalarProperty Name="Cust_Name" ColumnName="Cust_Name" />
+                <ScalarProperty Name="Order_Date" ColumnName="Order_Date" />
+                <ScalarProperty Name="AR" ColumnName="AR" />
+                <ScalarProperty Name="C2009_08_01" ColumnName="2009-08-01" />
+                <ScalarProperty Name="C2009_08_02" ColumnName="2009-08-02" />
+                <ScalarProperty Name="C2009_08_03" ColumnName="2009-08-03" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetOrderReport_PIVOT" FunctionName="DemoModel.Store.usp_GetOrderReport_PIVOT">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoModel.usp_GetOrderReport_PIVOT_Result">
+                <ScalarProperty Name="Cust_Name" ColumnName="Cust_Name" />
+                <ScalarProperty Name="C2009_08_01" ColumnName="2009-08-01" />
+                <ScalarProperty Name="C2009_08_02" ColumnName="2009-08-02" />
+                <ScalarProperty Name="C2009_08_03" ColumnName="2009-08-03" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetOrderReportV2" FunctionName="DemoModel.Store.usp_GetOrderReportV2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoModel.usp_GetOrderReportV2_Result">
+                <ScalarProperty Name="Cust_Name" ColumnName="Cust_Name" />
+                <ScalarProperty Name="C2009_08_01" ColumnName="2009-08-01" />
+                <ScalarProperty Name="C2009_08_02" ColumnName="2009-08-02" />
+                <ScalarProperty Name="C2009_08_03" ColumnName="2009-08-03" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetSpecialtyReport" FunctionName="DemoModel.Store.usp_GetSpecialtyReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoModel.usp_GetSpecialtyReport_Result">
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="Major" ColumnName="Major" />
+                <ScalarProperty Name="FldIdx" ColumnName="FldIdx" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetSpecialtyReportV2" FunctionName="DemoModel.Store.usp_GetSpecialtyReportV2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoModel.usp_GetSpecialtyReportV2_Result">
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="Major" ColumnName="Major" />
+                <ScalarProperty Name="FldIdx" ColumnName="FldIdx" />
+                <ScalarProperty Name="Fld1" ColumnName="Fld1" />
+                <ScalarProperty Name="Fld2" ColumnName="Fld2" />
+                <ScalarProperty Name="Fld3" ColumnName="Fld3" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetSpecialtyReportV3" FunctionName="DemoModel.Store.usp_GetSpecialtyReportV3">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoModel.usp_GetSpecialtyReportV3_Result">
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="Fld1" ColumnName="Fld1" />
+                <ScalarProperty Name="Fld2" ColumnName="Fld2" />
+                <ScalarProperty Name="Fld3" ColumnName="Fld3" />
+                <ScalarProperty Name="FldCount" ColumnName="FldCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

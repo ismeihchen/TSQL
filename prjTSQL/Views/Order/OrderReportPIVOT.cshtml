@@ -1,0 +1,35 @@
+﻿@model IEnumerable<prjTSQL.Models.usp_GetOrderReport_PIVOT_Result>
+@{
+    ViewBag.Title = "訂單查詢PIVOT(依日期展開)";
+}
+
+<h2>@ViewBag.DepName</h2>
+
+<div class="row">
+    <div class="col-xs-4">
+        <p>@Html.ActionLink("1.訂單查詢", "Index")</p>
+        <p>@Html.ActionLink("2.訂單查詢(依日期展開)", "OrderReport")</p>
+        <p>@Html.ActionLink("3.訂單查詢(依日期展開並含每日合計)", "OrderReportV2")</p>
+        <p>4.訂單查詢PIVOT(依日期展開)</p>
+
+    </div>
+    <div class="col-xs-8">
+        <table class="table">
+            <tr>
+                <th>客戶名稱</th>
+                <th>2009/08/01</th>
+                <th>2009/08/02</th>
+                <th>2009/08/03</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@(item.Cust_Name != null ? item.Cust_Name : "合計")</td>
+                    <td>@item.C2009_08_01</td>
+                    <td>@item.C2009_08_02</td>
+                    <td>@item.C2009_08_03</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

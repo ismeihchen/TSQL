@@ -1,0 +1,42 @@
+﻿@model IEnumerable<prjTSQL.Models.usp_GetOrderReport_Result>
+@{
+    ViewBag.Title = "訂單數據表";
+}
+
+<h2>@ViewBag.DepName</h2>
+
+<div class="row">
+    <div class="col-xs-4">
+        <p>@Html.ActionLink("1.訂單查詢", "Index")</p>
+        <p>2.訂單數據表</p>
+        <p>@Html.ActionLink("3.訂單查詢(依日期展開並含每日合計)", "OrderReportV2")</p>
+        <p>@Html.ActionLink("4.訂單查詢PIVOT(依日期展開)", "OrderReportPIVOT")</p>
+
+        @*<p>@Html.ActionLink(item.fDepName, "Index", new { depId = item.fDepId })</p>
+        <p>@Html.ActionLink(item.fDepName, "Index", new { depId = item.fDepId })</p>
+        <p>@Html.ActionLink(item.fDepName, "Index", new { depId = item.fDepId })</p>*@
+    </div>
+    <div class="col-xs-8">
+        <table class="table">
+            <tr>
+                <th>客戶名稱</th>
+                <th>訂單日期</th>
+                <th>AR</th>
+                <th>2009/08/01</th>
+                <th>2009/08/02</th>
+                <th>2009/08/03</th>                
+            </tr>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Cust_Name</td>
+                <td>@item.Order_Date</td>
+                <td>@item.AR</td>
+                <td>@item.C2009_08_01</td>
+                <td>@item.C2009_08_02</td>
+                <td>@item.C2009_08_03</td>
+            </tr>
+            }
+        </table>
+    </div>
+</div>

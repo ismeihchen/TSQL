@@ -1,0 +1,36 @@
+﻿@model IEnumerable<prjTSQL.Models.usp_GetSpecialtyReportV3_Result>
+@{
+    ViewBag.Title = "員工專長查詢(專長較多員工排列在前)";
+}
+
+<h2>@ViewBag.DepName</h2>
+
+<div class="row">
+    <div class="col-xs-4">
+        <p>@Html.ActionLink("1.員工專長查詢", "Index")</p>
+        <p>@Html.ActionLink("2.員工專長查詢(新增專長順序)", "SpecialtyReport")</p>
+        <p>@Html.ActionLink("3.員工專長查詢(依專長數量展開)", "SpecialtyReportV2")</p>
+        <p>4.員工專長查詢(專長較多員工排列在前)</p>
+    </div>
+    <div class="col-xs-8">
+        <table class="table">
+            <tr>
+                <th>員工姓名</th>                
+                <th>專長1</th>
+                <th>專長2</th>
+                <th>專長3</th>
+                <th>專長數量</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.EmpName</td>                
+                <td>@item.Fld1</td>
+                <td>@item.Fld2</td>
+                <td>@item.Fld3</td>
+                <td>@item.FldCount</td>                
+            </tr>
+            }
+        </table>
+    </div>
+</div>

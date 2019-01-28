@@ -1,0 +1,34 @@
+﻿@model IEnumerable<prjTSQL.Models.Orders>
+@{
+    ViewBag.Title = "訂單查詢";
+}
+
+<h2>@ViewBag.DepName</h2>
+
+<div class="row">
+    <div class="col-xs-4">
+        <p>1.訂單查詢</p>
+        <p>@Html.ActionLink("2.訂單查詢(依日期展開)", "OrderReport")</p>
+        <p>@Html.ActionLink("3.訂單查詢(依日期展開並含每日合計)", "OrderReportV2")</p>        
+        <p>@Html.ActionLink("4.訂單查詢PIVOT(依日期展開)", "OrderReportPIVOT")</p>       
+    </div>
+    <div class="col-xs-8">
+        <table class="table">
+            <tr>
+                <th>訂單日期</th>
+                <th>客戶名稱</th>
+                <th>商品數量</th>
+                <th>商品單價</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Order_Date</td>
+                <td>@item.Cust_Name</td>
+                <td>@item.Qty</td>
+                <td>@item.Price</td>                
+            </tr>
+            }
+        </table>        
+    </div>
+</div>
