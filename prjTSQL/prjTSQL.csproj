@@ -183,6 +183,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\1_TableAndData.sql" />
+    <Content Include="App_Data\2_StoredProcedure_Order.sql" />
+    <Content Include="App_Data\3_StoredProcedure_Specialty.sql" />
     <Content Include="App_Data\Demo.mdf" />
     <Content Include="App_Data\Demo_log.ldf">
       <DependentUpon>Demo.mdf</DependentUpon>
